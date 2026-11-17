@@ -228,8 +228,10 @@ module.exports = grammar({
         // (1(2), Dup, Stack, ("duplicate", '.')),
         token('.'),
         // (2(2), Flip, Stack, ("flip", AsciiToken::Colon, '∶')),
+        token('flip'),
         token(':'),
         // (1(0), Pop, Stack, ("pop", ';')),
+        token('pop'),
         token('◌'),
         // (1, Identity, Stack, ("identity", '∘')),
         token('identity'),
@@ -242,6 +244,7 @@ module.exports = grammar({
         token('sign'),
         token('±'),
         // (1, Neg, MonadicPervasive, ("negate", AsciiToken::Backtick, '¯') ),
+        token('negate'),
         token('`'),
         token('¯'),
         // (1, Abs, MonadicPervasive, ("absolute value", '⌵')),
@@ -269,6 +272,8 @@ module.exports = grammar({
         // (2, Eq, DyadicPervasive, ("equals", AsciiToken::Equal, '=')),
         token('='),
         // (2, Ne, DyadicPervasive, ("not equals", AsciiToken::BangEqual, '≠') ),
+        token('ne'),
+        token('neq'),
         token('!='),
         token('≠'),
         // (2, Lt, DyadicPervasive, ("less than", '<')),
@@ -282,10 +287,13 @@ module.exports = grammar({
         token('>='),
         token('≥'),
         // (2, Add, DyadicPervasive, ("add", '+')),
+        token('add'),
         token('+'),
         // (2, Sub, DyadicPervasive, ("subtract", '-')),
+        token('subtract'),
         token('-'),
         // (2, Mul, DyadicPervasive, ("multiply", AsciiToken::Star, '×')),
+        token('multiply'),
         token('*'),
         token('×'),
         // (2, Div, DyadicPervasive, ("divide", AsciiToken::Percent, '÷') ),
@@ -293,6 +301,7 @@ module.exports = grammar({
         token('÷'),
         // (2, Mod, DyadicPervasive, ("modulus", '◿')),
         token('modulus'),
+        token('modulo'),
         token('◿'),
         // (2, Pow, DyadicPervasive, ("power", 'ⁿ')),
         token('power'),
@@ -397,6 +406,7 @@ module.exports = grammar({
         token('find'),
         token('⌕'),
         // (2, IndexOf, DyadicArray, ("indexof", '⊗')),
+        token('indexin'),
         token('indexof'),
         token('⊗'),
         // (2(0), Assert, Control, ("assert", '⍤')),
@@ -441,6 +451,7 @@ module.exports = grammar({
         token('¤'),
 
         // Since 0.5.0
+        token('args'),
         token('?'),
 
         // Since 0.8.0
@@ -468,6 +479,8 @@ module.exports = grammar({
         // Since 0.12.0
         token('memberOf'),
         token('∈'),
+        token('memberof'),
+        token('∊'),
 
         token('imen'),
         token('gife'),
@@ -496,7 +509,26 @@ module.exports = grammar({
         token('˜'),
         token('pretty'),
         token('bytes'),
-      
+
+        // Since 0.20.0-dev.1 or earlier
+        // monadic
+        token('exponential'),
+        token('ₑ'),
+        token('occurrences'),
+        token('⧆'),
+        token('reciprocal'),
+        token('⨪'),
+        token('multivector'),
+        token('𝕍'),
+        // dyadic
+        token('inner'), // inner product
+        token('⨰'),
+        token('outer'), // outer product
+        token('⨱'),
+        token('validate'),
+        token('⊨'),
+
+
         // End of function
       ),
       optional($.subscript)
@@ -568,12 +600,25 @@ module.exports = grammar({
       token('⧅'),
 
       // Since 0.14.0
+      token('stencil'),
       token('⧈'),
 
       // Since 0.15.0
       token('self'),
       token('˙'),
-      
+
+      // Since 0.20.0-dev.1 or earlier
+      token('case'),
+      token('⍩'),
+      token('evert'),
+      token('⧋'),
+      token('derivative'),
+      token('∂'),
+      token('integral'),
+      token('∫'),
+      token('reach'),
+      token('∪'),
+
       // End of modifier1
     ),
     modifier2:   $ => choice(
@@ -622,6 +667,12 @@ module.exports = grammar({
 
       // Since 0.14.0
       token('path'),
+
+      // Since 0.20.0-dev.1 or earlier
+      token('pattern'),
+      token('⍡'),
+      token('switch'),
+      token('⨬'),
 
       // End of modifier2
     ),
