@@ -223,7 +223,11 @@ module.exports = grammar({
 
       // End of constant
     ),
-    function:    $ => seq(
+    function:    $ => choice(
+      $.function1,
+      $.function2,
+    ),
+    function1:   $ => seq(
       choice(
         // (1(2), Dup, Stack, ("duplicate", '.')),
         token('.'),
@@ -269,6 +273,138 @@ module.exports = grammar({
         // (1, Round, MonadicPervasive, ("round", '⁅')),
         token('round'),
         token('⁅'),
+        // (1, Len, MonadicArray, ("length", '⧻')),
+        token('length'),
+        token('⧻'),
+        // (1, Shape, MonadicArray, ("shape", '△')),
+        token('shape'),
+        token('△'),
+        // (1, Range, MonadicArray, ("range", '⇡')),
+        token('range'),
+        token('⇡'),
+        // (1, First, MonadicArray, ("first", '⊢')),
+        token('first'),
+        token('⊢'),
+        // (1, Last, MonadicArray),
+        // (1, Reverse, MonadicArray, ("reverse", '⇌')),
+        token('reverse'),
+        token('⇌'),
+        // (1, Deshape, MonadicArray, ("deshape", '♭')),
+        token('deshape'),
+        token('♭'),
+        // (1, Bits, MonadicArray, ("bits", '⋯')),
+        token('bits'),
+        token('⋯'),
+        // (1, InverseBits, MonadicArray),
+        // (1, Transpose, MonadicArray, ("transpose", '⍉')),
+        token('transpose'),
+        token('⍉'),
+        // (1, InvTranspose, MonadicArray),
+        // (1, Rise, MonadicArray, ("rise", '⍏')),
+        token('rise'),
+        token('⍏'),
+        // (1, Fall, MonadicArray, ("fall", '⍖')),
+        token('fall'),
+        token('⍖'),
+        // (1, Where, MonadicArray, ("where", '⊚')),
+        token('where'),
+        token('⊚'),
+        // (1, Classify, MonadicArray, ("classify", '⊛')),
+        token('classify'),
+        token('⊛'),
+        // (1, Deduplicate, MonadicArray, ("deduplicate", '⊝')),
+        token('deduplicate'),
+        token('◴'),
+        // (1, Box, MonadicArray, ("box", '□')),
+        token('box'),
+        token('□'),
+        // (1, Wait, Misc, ("wait", '↲')),
+        token('wait'),
+        // (1(None), Recur, Control, ("recur", '↬')),
+        // token('recur'),
+        // token('↬'),
+        // (1, Parse, Misc, "parse"),
+        token('parse'),
+        token('⋕'),
+        // (0, Rand, Misc, ("random", '⚂')),
+        token('random'),
+        token('⚂'),
+        // (1(2), Gen, Misc, "gen"),
+        token('gen'),
+        // (0, Tag, Misc, "tag"),
+        token('tag'),
+        // (0, Now, Misc, "now"),
+        token('now'),
+        // (1, Type, Misc, "type"),
+        token('type'),
+        // (1, InvTrace, Stack),
+        // (0(0)[1], Dump, Stack, "dump"),
+        token('dump'),
+        token('regex'),
+        token('utf'),
+
+        // Since 0.0.23
+        token('send'),
+        token('recv'),
+        token('tryrecv'),
+
+        // Since 0.3.0
+        token('fix'),
+        token('¤'),
+
+        // Since 0.5.0
+        token('args'),
+        token('?'),
+
+        // Since 0.8.0
+        token('unique'),
+        token('◰'),
+
+        // Since 0.9.0
+        token('repr'),
+
+        // Since 0.10.0
+        token('csv'),
+
+        // Since 0.11.0
+        token('json'),
+        token('xlsx'),
+
+
+        token('utf₈'),
+        token('datetime'),
+        token('fft'),
+        token('graphemes'),
+        token('timezone'),
+        token('sort'),
+        token('⍆'),
+        token('last'),
+        token('⊣'),
+
+        // Since 0.14.0
+        token('binary'),
+
+        // Since 0.16.0
+        token('pretty'),
+
+        // Since 0.20.0-dev.1 or earlier
+        token('exponential'),
+        token('ₑ'),
+        token('occurrences'),
+        token('⧆'),
+        token('reciprocal'),
+        token('⨪'),
+        token('mv'),
+        token('multi'),
+        token('multivector'),
+        token('𝕍'),
+
+        // End of function1
+      ),
+      optional($.subscript)
+    ),
+    function2:   $ => seq(
+      choice(
         // (2, Eq, DyadicPervasive, ("equals", AsciiToken::Equal, '=')),
         token('='),
         // (2, Ne, DyadicPervasive, ("not equals", AsciiToken::BangEqual, '≠') ),
@@ -318,51 +454,9 @@ module.exports = grammar({
         // (2, Atan, DyadicPervasive, ("atangent", '∠')),
         token('atangent'),
         token('∠'),
-        // (1, Len, MonadicArray, ("length", '⧻')),
-        token('length'),
-        token('⧻'),
-        // (1, Shape, MonadicArray, ("shape", '△')),
-        token('shape'),
-        token('△'),
-        // (1, Range, MonadicArray, ("range", '⇡')),
-        token('range'),
-        token('⇡'),
-        // (1, First, MonadicArray, ("first", '⊢')),
-        token('first'),
-        token('⊢'),
-        // (1, Last, MonadicArray),
-        // (1, Reverse, MonadicArray, ("reverse", '⇌')),
-        token('reverse'),
-        token('⇌'),
-        // (1, Deshape, MonadicArray, ("deshape", '♭')),
-        token('deshape'),
-        token('♭'),
-        // (1, Bits, MonadicArray, ("bits", '⋯')),
-        token('bits'),
-        token('⋯'),
-        // (1, InverseBits, MonadicArray),
-        // (1, Transpose, MonadicArray, ("transpose", '⍉')),
-        token('transpose'),
-        token('⍉'),
-        // (1, InvTranspose, MonadicArray),
-        // (1, Rise, MonadicArray, ("rise", '⍏')),
-        token('rise'),
-        token('⍏'),
-        // (1, Fall, MonadicArray, ("fall", '⍖')),
-        token('fall'),
-        token('⍖'),
-        // (1, Where, MonadicArray, ("where", '⊚')),
-        token('where'),
-        token('⊚'),
-        // (1, Classify, MonadicArray, ("classify", '⊛')),
-        token('classify'),
-        token('⊛'),
-        // (1, Deduplicate, MonadicArray, ("deduplicate", '⊝')),
-        token('deduplicate'),
-        token('◴'),
-        // (1, Box, MonadicArray, ("box", '□')),
-        token('box'),
-        token('□'),
+        // (2, Windows, DyadicArray, ("windows", '◫')),
+        token('windows'),
+        token('◫'),
         // (2, Match, DyadicArray, ("match", '≅')),
         token('match'),
         token('≍'),
@@ -395,9 +489,6 @@ module.exports = grammar({
         // (2, Rotate, DyadicArray, ("rotate", '↻')),
         token('rotate'),
         token('↻'),
-        // (2, Windows, DyadicArray, ("windows", '◫')),
-        token('windows'),
-        token('◫'),
         // (2, Keep, DyadicArray, ("keep", '▽')),
         token('keep'),
         token('▽'),
@@ -412,51 +503,12 @@ module.exports = grammar({
         // (2(0), Assert, Control, ("assert", '⍤')),
         token('assert'),
         token('⍤'),
-        // (1, Wait, Misc, ("wait", '↲')),
-        token('wait'),
-        // (1(None), Recur, Control, ("recur", '↬')),
-        // token('recur'),
-        // token('↬'),
-        // (1, Parse, Misc, "parse"),
-        token('parse'),
-        token('⋕'),
-        // (0, Rand, Misc, ("random", '⚂')),
-        token('random'),
-        token('⚂'),
-        // (1(2), Gen, Misc, "gen"),
-        token('gen'),
-        // (0, Tag, Misc, "tag"),
-        token('tag'),
-        // (0, Now, Misc, "now"),
-        token('now'),
-        // (1, Type, Misc, "type"),
-        token('type'),
-        // (1, InvTrace, Stack),
-        // (0(0)[1], Dump, Stack, "dump"),
-        token('dump'),
-        token('regex'),
-        // token('utf'),
-
-        // Since 0.0.23
-        token('send'),
-        token('recv'),
-        token('tryrecv'),
 
         // Since 0.0.26
         token('complex'),
         token('ℂ'),
 
-        // Since 0.3.0
-        token('fix'),
-        token('¤'),
-
-        // Since 0.5.0
-        token('args'),
-        token('?'),
-
         // Since 0.8.0
-        token('unique'),
-        token('◰'),
         // hash functions
         token('map'),
         token('has'),
@@ -464,17 +516,9 @@ module.exports = grammar({
         token('insert'),
         token('remove'),
 
-        // Since 0.9.0
-        token('repr'),
-
         // Since 0.10.0
         token('mask'),
         token('⦷'),
-        token('csv'),
-
-        // Since 0.11.0
-        token('json'),
-        token('xlsx'),
 
         // Since 0.12.0
         token('memberOf'),
@@ -482,52 +526,32 @@ module.exports = grammar({
         token('memberof'),
         token('∊'),
 
-        token('imen'),
-        token('gife'),
-        token('auden'),
-        token('utf₈'),
-        token('datetime'),
+        token('img'),
+        token('gif'),
+        token('audio'),
         token('orient'),
         token('⤸'),
-        token('fft'),
-        token('graphemes'),
-        token('timezone'),
         token('base'),
         token('⊥'),
-        token('sort'),
-        token('⍆'),
-        token('last'),
-        token('⊣'),
 
         // Since 0.14.0
         token('or'),
         token('∨'),
-        token('binary'),
 
         // Since 0.16.0
-        token('pretty'),
         token('bytes'),
 
         // Since 0.20.0-dev.1 or earlier
-        // monadic
-        token('exponential'),
-        token('ₑ'),
-        token('occurrences'),
-        token('⧆'),
-        token('reciprocal'),
-        token('⨪'),
-        token('multivector'),
-        token('𝕍'),
-        // dyadic
         token('inner'), // inner product
         token('⨰'),
         token('outer'), // outer product
+        token('wedge'),
+        token('wed'),
         token('⨱'),
         token('validate'),
         token('⊨'),
 
-
-        // End of function
+        // End of function2
       ),
       optional($.subscript)
     ),
