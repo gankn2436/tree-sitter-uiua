@@ -505,8 +505,6 @@ module.exports = grammar({
         token('binary'),
 
         // Since 0.16.0
-        token('backward'),
-        token('˜'),
         token('pretty'),
         token('bytes'),
 
@@ -608,6 +606,26 @@ module.exports = grammar({
       token('˙'),
 
       // Since 0.20.0-dev.1 or earlier
+      token('backward'),
+      token('˜'),
+      token('by'),
+      token('⊸'),
+      // (2[1], Both, Stack, ("both", '∩')),
+      token('both'),
+      token('∩'),
+      // (2[1], Fold, AggregatingModifier, ("fold", '∧')),
+      token('fold'),
+      token('∧'),
+      // (2[1], Table, IteratingModifier, ("table", '⊞')),
+      token('table'),
+      token('⊞'),
+      // (2[1], Group, AggregatingModifier, ("group", '⊕')),
+      token('group'),
+      token('⊕'),
+      // (2[1], Partition, AggregatingModifier, ("partition", '⊜')),
+      token('partition'),
+      token('⊜'),
+
       token('case'),
       token('⍩'),
       token('evert'),
@@ -622,21 +640,6 @@ module.exports = grammar({
       // End of modifier1
     ),
     modifier2:   $ => choice(
-      // (2[1], Fold, AggregatingModifier, ("fold", '∧')),
-      token('fold'),
-      token('∧'),
-      // (2[1], Table, IteratingModifier, ("table", '⊞')),
-      token('table'),
-      token('⊞'),
-      // (2[1], Group, AggregatingModifier, ("group", '⊕')),
-      token('group'),
-      token('⊕'),
-      // (2[1], Partition, AggregatingModifier, ("partition", '⊜')),
-      token('partition'),
-      token('⊜'),
-      // (2[1], Both, Stack, ("both", '∩')),
-      token('both'),
-      token('∩'),
       // ([2], Bracket, Stack, ("bracket", '⊓')),
       token('bracket'),
       token('⊓'),
@@ -661,8 +664,6 @@ module.exports = grammar({
       token('f'),
 
       // Since 0.10.0
-      token('by'),
-      token('⊸'),
       token('quote'),
 
       // Since 0.14.0
